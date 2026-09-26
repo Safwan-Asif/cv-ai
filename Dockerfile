@@ -17,8 +17,10 @@ WORKDIR /app/frontend
 # Copy package files first for better caching
 COPY apps/frontend/package*.json ./
 
-# Install dependencies
-RUN npm install
+# Replace the install step in Stage 1 with:
+RUN npm install -g npm@latest && \
+    npm cache clean --force && \
+    npm install --legacy-peer-deps --no-audit
 
 # Copy frontend source
 COPY apps/frontend/ ./
