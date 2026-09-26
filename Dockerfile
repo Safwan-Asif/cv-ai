@@ -77,15 +77,13 @@ COPY apps/backend /app/backend
 
 WORKDIR /app/backend
 
-# Install Python dependencies (finds pyproject.toml inside /app/backend or /app/backend/src)
+# Explicitly check for setup files and install dependencies
 RUN if [ -f "pyproject.toml" ]; then \
         pip install .; \
-    elif [ -f "src/pyproject.toml" ]; then \
-        cd src && pip install .; \
     elif [ -f "requirements.txt" ]; then \
         pip install -r requirements.txt; \
     else \
-        pip install -e .; \
+        echo "=== CONTENTS OF /app/backend ===" && ls -la /app/backend && exit 1; \
     fi
 
 # ============================================
