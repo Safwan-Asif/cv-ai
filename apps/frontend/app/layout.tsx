@@ -50,7 +50,7 @@ const notoSansJP = Noto_Sans_JP({
 
 export const metadata: Metadata = {
   title: 'Resume Matcher',
-  description: 'Build your resume with Resume Matcher',
+  description: 'AI-powered resume tailoring and management tool',
   applicationName: 'Resume Matcher',
   keywords: ['resume', 'matcher', 'job', 'application'],
 };

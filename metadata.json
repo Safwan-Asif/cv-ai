@@ -1,0 +1,9 @@
+{
+  "name": "Resume Matcher",
+  "description": "AI-powered resume tailoring and management tool",
+  "version": "1.0.0",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "permissions": []
+}
