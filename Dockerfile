@@ -45,7 +45,6 @@ ENV PYTHONUNBUFFERED=1 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
-    # Playwright dependencies
     libnss3 \
     libnspr4 \
     libatk1.0-0 \
@@ -63,7 +62,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcairo2 \
     libatspi2.0-0 \
     libgtk-3-0 \
-    # CJK fonts for Chinese/Japanese/Korean PDF rendering via Playwright
     fonts-noto-cjk \
     && rm -rf /var/lib/apt/lists/*
 
@@ -79,8 +77,16 @@ COPY apps/backend /app/backend
 
 WORKDIR /app/backend
 
-# Install Python dependencies
-RUN pip install .
+# Install Python dependencies (finds pyproject.toml inside /app/backend or /app/backend/src)
+RUN if [ -f "pyproject.toml" ]; then \
+        pip install .; \
+    elif [ -f "src/pyproject.toml" ]; then \
+        cd src && pip install .; \
+    elif [ -f "requirements.txt" ]; then \
+        pip install -r requirements.txt; \
+    else \
+        pip install -e .; \
+    fi
 
 # ============================================
 # Frontend Setup
