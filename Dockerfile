@@ -73,8 +73,7 @@ COPY --from=frontend-builder /usr/local/bin/node /usr/local/bin/node
 # ============================================
 # Backend Setup
 # ============================================
-COPY apps/backend/pyproject.toml /app/backend/
-COPY apps/backend/app /app/backend/app
+COPY apps/backend /app/backend
 
 WORKDIR /app/backend
 
